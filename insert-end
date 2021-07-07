@@ -1,0 +1,82 @@
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+#include <stdlib.h>
+
+struct node
+{
+    int data;
+    struct node *next;
+}*head;
+
+void ins(int ele)
+{
+    if(head)                       // if there is no head element then create the head element.
+    {
+    struct node *p=head,*temp;
+    temp=(struct node *)malloc(sizeof(struct node));
+    temp->data=ele;
+    temp->next=NULL;
+    while(p->next) p=p->next;
+    p->next=temp;           
+    }
+    else                   // if there is already a node then create a temp node, assign a value ,point it to null and the assign the temp node to the head . 
+    {                      // thus every element gets inserted at the end.
+        struct node *t2;
+        t2=(struct node *)malloc(sizeof(struct node));
+        t2->data=ele;
+        t2->next=NULL;
+        head=t2;
+     }
+}
+
+void del()
+{
+    if(head)     // check if there is any node first then create a temp node and assign the head node to that node and then make the head node point to the next node
+    {            // then free the temp node so the head node now is pointing to the next node and the first node is deleted.
+      
+            struct node *temp=head;
+            head=head->next;
+            free(temp);    
+    
+    }
+}
+void display()
+{
+    struct node *p=head;
+    if(p)
+    { 
+        while(p)
+    {
+        if(!p->next)
+        printf("%d",p->data);
+        else
+        printf("%d->",p->data);
+        p=p->next;
+    }
+  }
+}
+int main() {
+
+    /* Enter your code here. Read input from STDIN. Print output to STDOUT */  
+    int a;
+    scanf("%d",&a);
+    for(int i=a;i>=1;i--)
+    {
+        int b;
+        scanf("%d",&b);
+        ins(b);
+    }
+    int k;
+    scanf("%d",&k);
+    
+    if(head)
+    {
+    while(k--)    // You can delete k times the node from the beginning.
+    del();
+    display();
+    }
+    else
+    printf("null");
+    return 0;
+}
