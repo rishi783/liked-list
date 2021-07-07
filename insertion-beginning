@@ -7,7 +7,7 @@ struct node
     int data;
     struct node *next;
 }*head;
-void ins(int ele)
+void ins(int ele)     //create a temp node and assign a value , point it to the head and assign the temp to the head so every element gets inserted at the beginning.
 {
     struct node *temp;
     temp=(struct node *)malloc(sizeof(struct node));
