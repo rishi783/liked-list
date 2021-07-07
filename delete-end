@@ -1,0 +1,96 @@
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+#include <stdlib.h>
+struct node
+{
+    int data;
+    struct node *next;
+}*head;
+
+void ins(int ele)
+{
+    if(head)
+    {
+    struct node *p=head,*temp;
+    temp=(struct node *)malloc(sizeof(struct node));
+    temp->data=ele;
+    temp->next=NULL;
+    while(p->next) p=p->next;
+    p->next=temp;           
+    }
+    else
+    {
+        //ins(ele);
+        struct node *t2;
+        t2=(struct node *)malloc(sizeof(struct node));
+        t2->data=ele;
+        t2->next=NULL;
+        head=t2;
+     }
+}
+
+void delend()
+{
+    if(head)
+    {
+        if(head==NULL) // if only one node then you can use del from beginning code
+        {
+            del();
+            return;
+        }
+      struct node *p=head,*temp; // else run loop with two next pointers, until its null point the head pointer to the next node.
+      while(p->next->next) p=p->next;   //now the pointer is in the last value now assign that to temp and make the head pointer point to null
+      temp=p->next;              // then free the temp node s the last node is deleted .
+      p->next=NULL; 
+      free(temp);
+    }
+}
+void del()
+{
+    if(head)
+    {
+        struct node *temp=head;
+        head=head->next;
+        free(temp);
+        
+    }
+}
+void display()
+{
+    struct node *p=head;
+    if(p)
+    { 
+        while(p)
+    {
+        if(!p->next)
+        printf("%d",p->data);
+        else
+        printf("%d->",p->data);
+        p=p->next;
+    }
+  }
+}
+int main() {
+
+    /* Enter your code here. Read input from STDIN. Print output to STDOUT */  
+    int a;
+    scanf("%d",&a);
+    for(int i=a;i>=1;i--)
+    {
+        int b;
+        scanf("%d",&b);
+        ins(b);
+    }
+    int k;
+    scanf("%d",&k);
+    if(head)
+    {
+    while(k--)         //you can delete k times from the end .
+    delend();
+    display();
+    }
+    else
+    printf("null");
+    return 0;
+}
